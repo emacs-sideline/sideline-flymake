@@ -4,7 +4,7 @@
 # sideline-flymake
 > Show flymake errors with sideline
 
-[![CI](https://github.com/jcs-elpa/sideline-flymake/actions/workflows/test.yml/badge.svg)](https://github.com/jcs-elpa/sideline-flymake/actions/workflows/test.yml)
+[![CI](https://github.com/emacs-sideline/sideline-flymake/actions/workflows/test.yml/badge.svg)](https://github.com/emacs-sideline/sideline-flymake/actions/workflows/test.yml)
 
 ## Contribute
 
