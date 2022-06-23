@@ -31,7 +31,9 @@
 
 ;;; Code:
 
+(require 'cl-lib)
 (require 'flymake)
+(require 'subr-x)
 
 (require 'sideline)
 
