@@ -9,7 +9,10 @@
 ## 🔨 Quickstart
 
 ```elisp
-
+(leaf sideline
+  :hook (flymake-mode-hook . sideline-mode)
+  :init
+  (setq sideline-backends-right '(sideline-flymake)))
 ```
 
 ## Contribute
