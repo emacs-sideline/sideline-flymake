@@ -51,9 +51,9 @@ Argument COMMAND is required in sideline backend."
 
 (defun sideline-flymake--get-errors ()
   "Return flymake errors."
-  (if (use-region-p)
-      (flymake-diagnostics (region-beginning) (region-end))
-    (flymake-diagnostics (point))))
+  ;; Don't need to take care of the region, since sideline cannot display with
+  ;; region is active.
+  (flymake-diagnostics (point)))
 
 (defun sideline-flymake--show-errors (callback &rest _)
   "Execute CALLBACK to display with sideline."
