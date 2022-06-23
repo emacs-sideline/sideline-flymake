@@ -31,6 +31,8 @@
 
 ;;; Code:
 
+(require 'flymake)
+
 (require 'sideline)
 
 (defgroup sideline-flymake nil
@@ -38,6 +40,34 @@
   :prefix "sideline-flymake-"
   :group 'tool
   :link '(url-link :tag "Repository" "https://github.com/emacs-sideline/sideline-flymake"))
+
+;;;###autoload
+(defun sideline-flymake (command)
+  "Backend for sideline.
+
+Argument COMMAND is required in sideline backend."
+  (cl-case command
+    (`candidates (cons :async #'sideline-flymake--show-errors))))
+
+(defun sideline-flymake--get-errors ()
+  "Return flymake errors."
+  (if (use-region-p)
+      (flymake-diagnostics (region-beginning) (region-end))
+    (flymake-diagnostics (point))))
+
+(defun sideline-flymake--show-errors (callback &rest _)
+  "Execute CALLBACK to display with sideline."
+  (when flymake-mode
+    (when-let ((errors (sideline-flymake--get-errors)))
+      (dolist (err errors)
+        (let* ((text (flymake-diagnostic-text err))
+               (type (flymake-diagnostic-type err))
+               (face (cl-case type
+                       (:error 'error)
+                       (:warning 'warning)
+                       (t 'success))))
+          (add-face-text-property 0 (length text) face nil text)
+          (funcall callback (list text)))))))
 
 (provide 'sideline-flymake)
 ;;; sideline-flymake.el ends here
