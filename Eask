@@ -3,7 +3,7 @@
          "Show flymake errors with sideline")
 
 (website-url "https://github.com/emacs-sideline/sideline-flymake")
-(keywords "sideline" "flymake")
+(keywords "convenience" "flymake")
 
 (package-file "sideline-flymake.el")
 
