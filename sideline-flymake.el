@@ -32,7 +32,7 @@
 ;;
 ;;   (setq sideline-backends-right '(sideline-flymake))
 ;;
-;; 2) Then enable sideline-mode,
+;; 2) Then enable sideline-mode in the target buffer,
 ;;
 ;;   M-x sideline-mode
 ;;
