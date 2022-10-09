@@ -73,6 +73,8 @@ Argument COMMAND is required in sideline backend."
         (let* ((text (flymake-diagnostic-text err))
                (type (flymake-diagnostic-type err))
                (face (cl-case type
+                       ('eglot-error 'error)
+                       ('eglot-warning 'warning)
                        (:error 'error)
                        (:warning 'warning)
                        (t 'success))))
