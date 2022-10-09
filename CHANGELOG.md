@@ -8,7 +8,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## 0.1.1 (Unreleased)
 > Released N/A
 
-* N/A
+* Fix handle eglot diagnostic types (#2)
 
 ## 0.1.0
 > Released Jun 29, 2022
