@@ -51,9 +51,10 @@
   :group 'tool
   :link '(url-link :tag "Repository" "https://github.com/emacs-sideline/sideline-flymake"))
 
-(defcustom sideline-flymake-display-errors-whole-line nil
-  "Weather to display errors for the whole line."
-  :type 'boolean
+(defcustom sideline-flymake-display-mode 'point
+  "Method type to when sideline will display flymake's errors."
+  :type '(choice (const line)
+                 (const point))
   :group 'sideline-flymake)
 
 ;;;###autoload
@@ -66,15 +67,9 @@ Argument COMMAND is required in sideline backend."
 
 (defun sideline-flymake--get-errors ()
   "Return flymake errors."
-  (let ((beg (if sideline-flymake-display-errors-whole-line
-		 (line-beginning-position)
-	       (point)))
-	(end (if sideline-flymake-display-errors-whole-line
-		 (line-end-position)
-	       nil)))
-    ;; Don't need to take care of the region, since sideline cannot display with
-    ;; region is active.
-    (flymake-diagnostics beg end)))
+  (cl-case sideline-flymake-display-mode
+    ('point (flymake-diagnostics (point)))
+    ('line (flymake-diagnostics (line-beginning-position) (line-end-position)))))
 
 (defun sideline-flymake--show-errors (callback &rest _)
   "Execute CALLBACK to display with sideline."

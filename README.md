@@ -14,7 +14,8 @@
 (leaf sideline
   :hook (flymake-mode-hook . sideline-mode)
   :init
-  (setq sideline-flymake-display-errors-whole-line nil) ; Shows errors only where the cursor is hovering.
+  (setq sideline-flymake-display-errors-whole-line 'point) ; 'point to show errors only on point
+                                                           ; 'line to show errors on the current line
   (setq sideline-backends-right '(sideline-flymake)))
 ```
 
