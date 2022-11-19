@@ -51,6 +51,12 @@
   :group 'tool
   :link '(url-link :tag "Repository" "https://github.com/emacs-sideline/sideline-flymake"))
 
+(defcustom sideline-flymake-display-mode 'point
+  "Method type to when sideline will display flymake's errors."
+  :type '(choice (const line)
+                 (const point))
+  :group 'sideline-flymake)
+
 ;;;###autoload
 (defun sideline-flymake (command)
   "Backend for sideline.
@@ -61,9 +67,11 @@ Argument COMMAND is required in sideline backend."
 
 (defun sideline-flymake--get-errors ()
   "Return flymake errors."
-  ;; Don't need to take care of the region, since sideline cannot display with
-  ;; region is active.
-  (flymake-diagnostics (point)))
+  (cl-case sideline-flymake-display-mode
+    ('point (flymake-diagnostics (point)))
+    ('line (flymake-diagnostics (line-beginning-position) (line-end-position)))
+    (t (user-error "Invalid value of sideline-flymake-display-mode: %s"
+		   sideline-flymake-display-mode))))
 
 (defun sideline-flymake--show-errors (callback &rest _)
   "Execute CALLBACK to display with sideline."
