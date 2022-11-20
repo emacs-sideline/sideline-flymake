@@ -68,10 +68,10 @@ Argument COMMAND is required in sideline backend."
 (defun sideline-flymake--get-errors ()
   "Return flymake errors."
   (cl-case sideline-flymake-display-mode
-    ('point (flymake-diagnostics (point)))
-    ('line (flymake-diagnostics (line-beginning-position) (line-end-position)))
+    (`point (flymake-diagnostics (point)))
+    (`line (flymake-diagnostics (line-beginning-position) (line-end-position)))
     (t (user-error "Invalid value of sideline-flymake-display-mode: %s"
-		   sideline-flymake-display-mode))))
+                   sideline-flymake-display-mode))))
 
 (defun sideline-flymake--show-errors (callback &rest _)
   "Execute CALLBACK to display with sideline."
@@ -81,8 +81,8 @@ Argument COMMAND is required in sideline backend."
         (let* ((text (flymake-diagnostic-text err))
                (type (flymake-diagnostic-type err))
                (face (cl-case type
-                       ('eglot-error 'error)
-                       ('eglot-warning 'warning)
+                       (`eglot-error 'error)
+                       (`eglot-warning 'warning)
                        (:error 'error)
                        (:warning 'warning)
                        (t 'success))))
