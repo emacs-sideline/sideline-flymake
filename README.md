@@ -19,6 +19,13 @@
   (setq sideline-backends-right '(sideline-flymake)))
 ```
 
+## 🔧 Customization
+
+#### 🧪 Variables
+
+- `sideline-flymake-display-mode` - Method type to when sideline will display flymake's errors.
+- `sideline-flymake-show-backend-name` - If non-nil, show checker name at the back.
+
 ## Contribute
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
