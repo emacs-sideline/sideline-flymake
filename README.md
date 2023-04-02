@@ -24,7 +24,8 @@
 #### 🧪 Variables
 
 - `sideline-flymake-display-mode` - Method type to when sideline will display flymake's errors.
-- `sideline-flymake-show-backend-name` - If non-nil, show checker name at the back.
+- `sideline-flymake-show-backend-name` - If non-nil, show the checker's name at the back.
+- `sideline-flymake-max-lines` - Maximum number of lines to show.
 
 ## Contribute
 

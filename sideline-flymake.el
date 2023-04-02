@@ -58,8 +58,13 @@
   :group 'sideline-flymake)
 
 (defcustom sideline-flymake-show-backend-name nil
-  "If non-nil, show checker name at the back."
+  "If non-nil, show the checker's name at the back."
   :type 'boolean
+  :group 'sideline-flymake)
+
+(defcustom sideline-flymake-max-lines 1
+  "Maximum number of lines to show."
+  :type 'integer
   :group 'sideline-flymake)
 
 ;;;###autoload
@@ -84,6 +89,9 @@ Argument COMMAND is required in sideline backend."
     (when-let ((errors (sideline-flymake--get-errors)))
       (dolist (err errors)
         (let* ((text (flymake-diagnostic-text err))
+               (lines (split-string text "\n"))
+               (lines (butlast lines (- (length lines) sideline-flymake-max-lines)))
+               (text (mapconcat #'identity lines "\n"))
                (type (flymake-diagnostic-type err))
                (backend (flymake-diagnostic-backend err))
                (face (cl-case type
