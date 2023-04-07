@@ -16,8 +16,8 @@
 (use-package sideline
   :hook (flymake-mode . sideline-mode)
   :init
-  (setq sideline-flymake-display-errors-whole-line 'point) ; 'point to show errors only on point
-                                                           ; 'line to show errors on the current line
+  (setq sideline-flymake-display-mode 'point) ; 'point to show errors only on point
+                                              ; 'line to show errors on the current line
   (setq sideline-backends-right '(sideline-flymake)))
 ```
 
