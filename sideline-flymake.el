@@ -80,7 +80,7 @@ Argument COMMAND is required in sideline backend."
   (cl-case sideline-flymake-display-mode
     (`point (flymake-diagnostics (point)))
     (`line (flymake-diagnostics (line-beginning-position) (line-end-position)))
-    (t (user-error "Invalid value of sideline-flymake-display-mode: %s"
+    (t (user-error "Invalid value of `sideline-flymake-display-mode': %s"
                    sideline-flymake-display-mode))))
 
 (defun sideline-flymake--show-errors (callback &rest _)
