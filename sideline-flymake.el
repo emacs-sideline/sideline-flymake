@@ -67,6 +67,21 @@
   :type 'integer
   :group 'sideline-flymake)
 
+(defface sideline-flymake-error
+  `((t :inherit error))
+  "Indicate error operation."
+  :group 'sideline-flymake)
+
+(defface sideline-flymake-warning
+  `((t :inherit warning))
+  "Indicate warning operation."
+  :group 'sideline-flymake)
+
+(defface sideline-flymake-success
+  `((t :inherit success))
+  "Indicate successful operation."
+  :group 'sideline-flymake)
+
 ;;;###autoload
 (defun sideline-flymake (command)
   "Backend for sideline.
@@ -95,11 +110,11 @@ Argument COMMAND is required in sideline backend."
                (type (flymake-diagnostic-type err))
                (backend (flymake-diagnostic-backend err))
                (face (cl-case type
-                       (`eglot-error 'error)
-                       (`eglot-warning 'warning)
-                       (:error 'error)
-                       (:warning 'warning)
-                       (t 'success))))
+                       (`eglot-error 'sideline-flymake-error)
+                       (`eglot-warning 'sideline-flymake-warning)
+                       (:error 'sideline-flymake-error)
+                       (:warning 'sideline-flymake-warning)
+                       (t 'sideline-flymake-success))))
           (when sideline-flymake-show-backend-name
             (setq text (format "%s (%s)" text backend)))
           (add-face-text-property 0 (length text) face nil text)
