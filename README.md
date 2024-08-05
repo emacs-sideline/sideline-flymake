@@ -3,6 +3,7 @@
 [![MELPA](https://melpa.org/packages/sideline-flymake-badge.svg)](https://melpa.org/#/sideline-flymake)
 [![MELPA Stable](https://stable.melpa.org/packages/sideline-flymake-badge.svg)](https://stable.melpa.org/#/sideline-flymake)
 
+<a href="#"><img align="right" src="https://raw.githubusercontent.com/emacs-sideline/sideline/master/etc/logo.png" width="20%"></a>
 # sideline-flymake
 > Show flymake errors with sideline
 
