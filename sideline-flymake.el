@@ -1,6 +1,6 @@
 ;;; sideline-flymake.el --- Show flymake errors with sideline  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2022-2024  Shen, Jen-Chieh
+;; Copyright (C) 2022-2025  Shen, Jen-Chieh
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
 ;; Maintainer: Shen, Jen-Chieh <jcs090218@gmail.com>
