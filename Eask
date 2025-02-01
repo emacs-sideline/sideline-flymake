@@ -1,5 +1,5 @@
 (package "sideline-flymake"
-         "0.1.0"
+         "0.2.0"
          "Show flymake errors with sideline")
 
 (website-url "https://github.com/emacs-sideline/sideline-flymake")
