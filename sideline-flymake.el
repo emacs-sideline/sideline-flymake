@@ -40,6 +40,7 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 'pcase)
 (require 'flymake)
 (require 'subr-x)
 
@@ -77,10 +78,28 @@
   "Indicate warning operation."
   :group 'sideline-flymake)
 
-(defface sideline-flymake-success
+(defface sideline-flymake-note
   `((t :inherit success))
-  "Indicate successful operation."
+  "Indicate note operation."
   :group 'sideline-flymake)
+
+(defcustom sideline-flymake-error-prefix ""
+  "Prefix for error sideline."
+  :type 'string
+  :group 'sideline-flymake)
+
+(defcustom sideline-flymake-warning-prefix ""
+  "Prefix for warning sideline."
+  :type 'string
+  :group 'sideline-flymake)
+
+(defcustom sideline-flymake-note-prefix ""
+  "Prefix for note sideline."
+  :type 'string
+  :group 'sideline-flymake)
+
+;;
+;;; Core
 
 ;;;###autoload
 (defun sideline-flymake (command)
@@ -98,6 +117,15 @@ Argument COMMAND is required in sideline backend."
     (t (user-error "Invalid value of `sideline-flymake-display-mode': %s"
                    sideline-flymake-display-mode))))
 
+(defun sideline-flymake--get-level (type)
+  "Return level symbol by TYPE."
+  (cl-case type
+    (`eglot-error   'error)
+    (`eglot-warning 'warning)
+    (:error         'error)
+    (:warning       'warning)
+    (t              'note)))
+
 (defun sideline-flymake--show-errors (callback &rest _)
   "Execute CALLBACK to display with sideline."
   (when flymake-mode
@@ -108,13 +136,17 @@ Argument COMMAND is required in sideline backend."
                (lines (butlast lines (- (length lines) sideline-flymake-max-lines)))
                (text (mapconcat #'identity lines "\n"))
                (type (flymake-diagnostic-type err))
+               (type (sideline-flymake--get-level type))
                (backend (flymake-diagnostic-backend err))
-               (face (cl-case type
-                       (`eglot-error 'sideline-flymake-error)
-                       (`eglot-warning 'sideline-flymake-warning)
-                       (:error 'sideline-flymake-error)
-                       (:warning 'sideline-flymake-warning)
-                       (t 'sideline-flymake-success))))
+               (face (pcase type
+                       (`error   'sideline-flymake-error)
+                       (`warning 'sideline-flymake-warning)
+                       (`note    'sideline-flymake-note)))
+               (prefix (pcase type
+                         (`error   sideline-flymake-error-prefix)
+                         (`warning sideline-flymake-warning-prefix)
+                         (`note sideline-flymake-note-prefix)))
+               (text (concat prefix text)))
           (when sideline-flymake-show-backend-name
             (setq text (format "%s (%s)" text backend)))
           (add-face-text-property 0 (length text) face nil text)
