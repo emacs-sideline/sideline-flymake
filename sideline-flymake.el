@@ -112,7 +112,9 @@ Argument COMMAND is required in sideline backend."
 (defun sideline-flymake--get-errors ()
   "Return flymake errors."
   (cl-case sideline-flymake-display-mode
-    (`point (flymake-diagnostics (point)))
+    (`point (if-let* ((bounds (bounds-of-thing-at-point 'symbol)))
+                (flymake-diagnostics (car bounds) (cdr bounds))
+              (flymake-diagnostics (point))))
     (`line (flymake-diagnostics (line-beginning-position) (line-end-position)))
     (t (user-error "Invalid value of `sideline-flymake-display-mode': %s"
                    sideline-flymake-display-mode))))
