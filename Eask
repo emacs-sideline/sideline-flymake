@@ -1,3 +1,5 @@
+;; -*- mode: eask; lexical-binding: t -*-
+
 (package "sideline-flymake"
          "0.2.0"
          "Show flymake errors with sideline")
