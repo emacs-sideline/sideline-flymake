@@ -131,7 +131,7 @@ Argument COMMAND is required in sideline backend."
 (defun sideline-flymake--show-errors (callback &rest _)
   "Execute CALLBACK to display with sideline."
   (when flymake-mode
-    (when-let ((errors (sideline-flymake--get-errors)))
+    (when-let* ((errors (sideline-flymake--get-errors)))
       (dolist (err errors)
         (let* ((text (flymake-diagnostic-text err))
                (lines (split-string text "\n"))
